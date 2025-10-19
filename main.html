@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cram AI</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css"
+    />
+
+    <style>
+      @font-face {
+        font-family: 'AppleSDGothicNeo-ExtraBold';
+        src: url('./fonts/AppleSDGothicNeo-ExtraBold.ttf') format('truetype');
+        font-weight: 700;
+        font-style: normal;
+      }
+
+      @font-face {
+        font-family: 'AppleSDGothicNeoMedium';
+        src: url('./fonts/AppleSDGothicNeo-Medium.ttf') format('truetype');
+        font-weight: 500;
+        font-style: normal;
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: 'AppleSDGothicNeo-ExtraBold', 'Noto Sans KR', sans-serif;
+        width: 100%;
+        height: 100vh;
+        overflow: hidden; 
+        position: relative;
+        background: #fff;
+      }
+
+      /* 배경 */
+      .background {
+        position: absolute;
+        inset: 0;
+        background: url('./images/background.png') center/cover no-repeat;
+        z-index: 1;
+      }
+
+      /* 흐린 투명 오버레이 */
+      .overlay {
+        position: absolute;
+        inset: 0;
+        background: rgba(217, 217, 217, 0.11);
+        z-index: 2;
+      }
+
+      /* 상단 헤더 */
+      header {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: calc(76 / 1200 * 100vh);
+        background: rgba(255, 255, 255, 0.31);
+        display: flex;
+        align-items: center;
+        padding-left: calc(60 / 1440 * 100vw);
+        z-index: 4;
+      }
+
+      header img {
+        height: calc(40 / 1200 * 100vh);
+        width: auto;
+      }
+
+      /* 메인 컨테이너 */
+      .main-container {
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+        height: 100vh;
+        position: relative;
+        overflow: hidden;
+        z-index: 3;
+      }
+
+      /* 왼쪽 섹션 (홍보 카드) */
+      .left-section {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+      }
+
+      .card-container {
+        position: relative;
+        width: 35vw;
+        max-width: 500px;
+      }
+
+      .card-bg {
+        width: 100%;
+        height: auto;
+        display: block;
+        filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.15));
+      }
+
+      .card-content {
+        position: absolute;
+        top: 44%;
+        left: 58%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+        color: #000;
+        width: 80%;
+        line-height: 150%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .card-content h1 {
+        font-size: clamp(28px, 3vw, 40px);
+        font-weight: 700;
+        margin-bottom: 10px;
+        line-height: 150%;
+      }
+
+      .card-content h1 span {
+        color: #9a3bff;
+      }
+
+      .card-content p {
+        font-family: 'AppleSDGothicNeoMedium', sans-serif;
+        font-size: clamp(14px, 1.2vw, 16px);
+        color: #444;
+        margin-bottom: 30px;
+        line-height: 150%;
+      }
+
+      .app-icon {
+        width: 90px;
+        margin-bottom: 10px;
+      }
+
+      .cram-logo {
+        width: 130px;
+        margin-bottom: 30px;
+      }
+
+      .download-btn {
+        background: #000;
+        color: #fff;
+        border: none;
+        border-radius: 9999px;
+        padding: 14px 36px;
+        font-size: clamp(12px, 1.1vw, 16px);
+        cursor: pointer;
+        transition: 0.3s ease;
+      }
+
+      .download-btn:hover {
+        background: #9a3bff;
+      }
+
+      /* 오른쪽 섹션 (질문 카드들) */
+      .right-section {
+        flex: 1;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px 25px;
+        align-content: center;
+        justify-items: center;
+        padding: 80px 40px;
+        overflow: hidden; 
+      }
+
+      .question-card {
+        width: 250px;
+        height: 160px;
+        background: rgba(255, 255, 255, 0.59);
+        border-radius: 25px;
+        font-family: 'Pretendard', sans-serif;
+        font-size: 13px;
+        color: rgba(0, 0, 0, 0.7);
+        line-height: 1.4;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: 15px;
+        backdrop-filter: blur(3px);
+        box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
+        transition: 0.3s ease;
+        opacity: 0.7;
+      }
+
+      
+        /* 지그재그 배치 효과 */
+        .question-card:nth-child(odd) {
+        transform: translateY(20px) translateX(-20px);
+    }
+
+        .question-card:nth-child(even) {
+        transform: translateY(-20px) translateX(20px);
+        }
+
+      .question-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+      }
+
+      /* 반응형 (모바일에서는 오른쪽 섹션 숨김) */
+      @media (max-width: 1024px) {
+        .main-container {
+          flex-direction: column;
+          height: auto;
+          min-height: 100vh;
+        }
+
+        .left-section {
+          order: 1;
+          width: 100%;
+          padding: 40px 0;
+        }
+
+        .right-section {
+          display: none; /* 모바일에서는 숨김 */
+        }
+      }
+
+      @media (max-width: 768px) {
+        header {
+          height: 60px;
+          padding-left: 20px;
+        }
+
+        header img {
+          height: 28px;
+        }
+
+        .card-container {
+          width: 75vw;
+        }
+
+        .app-icon {
+          width: 70px;
+        }
+
+        .cram-logo {
+          width: 100px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .card-container {
+          width: 90vw;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="background"></div>
+    <div class="overlay"></div>
+
+    <!-- 상단 로고 -->
+    <header>
+      <img src="./images/cram-ai-logo.png" alt="Cram AI Logo" />
+    </header>
+
+    <!-- 메인 콘텐츠 -->
+    <div class="main-container">
+      <!-- 왼쪽 섹션 -->
+      <section class="left-section">
+        <div class="card-container">
+          <img src="./images/card.png" alt="Card" class="card-bg" />
+          <div class="card-content">
+            <h1>
+              같은 시간 안에<br />
+              <span>40% 더</span> 암기하도록
+            </h1>
+            <p>Spaced learning을 통한 암기력 향상</p>
+            <img src="./images/app-icon.png" alt="App Icon" class="app-icon" />
+            <img src="./images/cram-text-logo.png" alt="CRAM AI Logo" class="cram-logo" />
+            <button class="download-btn" >앱 다운로드</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- 오른쪽 섹션 -->
+      <section class="right-section">
+        <div class="question-card">간세포 손상 시<br />혈중에서 상승하는 대표 효소는?</div>
+        <div class="question-card">‘재량행위’와<br />‘기속행위'의 차이는?</div>
+        <div class="question-card">행정행위의 하자는<br />몇 가지로 나뉘는가?</div>
+        <div class="question-card">‘although’와<br />‘despite’의 차이는?</div>
+        <div class="question-card">형법상 고의는 결과 발생에 대한<br />‘OO’과 ‘OO’으로 구성된다</div>
+        <div class="question-card">‘재량행위’와<br />‘기속행위'의 차이는?</div>
+        <div class="question-card">인권 침해로 인한<br />제도적 구제 절차에 대해 설명하시오</div>
+        <div class="question-card">행정기관이 국민에게<br />일정 권리나 이익을 부여하는 행위는?</div>
+        <div class="question-card">간접도 손실 시<br />활용에서 상충하는 대표 요소는?</div>
+        <div class="question-card">1920년대 무장 독립운동의<br />대표적 단체는?</div>
+        <div class="question-card">고려의 최고 교육 기관은?</div>
+        <div class="question-card">인슐린 결핍으로 인해<br />케톤체가 과다하게 생성되어<br />발생하는 대사성 질환은?</div>
+      </section>
+    </div>
+  </body>
+</html>
