@@ -261,6 +261,14 @@
         }
       }
     </style>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-1T2ETW1G54"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-1T2ETW1G54',{ send_page_view: false });
+    </script>
   </head>
 
   <body>
@@ -286,7 +294,7 @@
             <p>Spaced learning을 통한 암기력 향상</p>
             <img src="./images/app-icon.png" alt="App Icon" class="app-icon" />
             <img src="./images/cram-text-logo.png" alt="CRAM AI Logo" class="cram-logo" />
-            <button class="download-btn" >앱 다운로드</button>
+            <button  class="download-btn" id="downloadBtn" >앱 다운로드</button>
           </div>
         </div>
       </section>
@@ -307,5 +315,45 @@
         <div class="question-card">인슐린 결핍으로 인해<br />케톤체가 과다하게 생성되어<br />발생하는 대사성 질환은?</div>
       </section>
     </div>
+    <script>
+      const params = new URLSearchParams(window.location.search);
+      const ref = params.get('ref');
+
+      // ref가 있으면 localStorage에 저장
+      if (ref) {
+        localStorage.setItem('cram_ref', ref);
+      }
+
+      // 저장된 ref 불러오기 (없으면 direct로 처리)
+      const storedRef = localStorage.getItem('cram_ref') || 'direct';
+
+      //  페이지 첫 유입 이벤트 전송
+      gtag('event', 'page_visit', {
+        event_category: 'traffic',
+        event_label: storedRef,
+        value: 1,
+      });
+
+      console.log(`✅ GA page_visit event: ref=${storedRef}`);
+    </script>
+    <script>
+      document.getElementById('downloadBtn').addEventListener('click', function() {
+        const storedRef = localStorage.getItem('cram_ref') || 'direct';
+
+        // GA 이벤트 전송
+        gtag('event', 'app_download', {
+          event_category: 'engagement',
+          event_label: storedRef,
+          value: 1
+        });
+
+        console.log(`✅ GA app_download event: ref=${storedRef}`);
+
+        const downloadUrl = './404.html';
+
+        // ref 파라미터 포함해서 리디렉션
+        window.location.href = `${downloadUrl}?ref=${storedRef}`;
+      });
+    </script>
   </body>
 </html>
