@@ -97,7 +97,7 @@
       .card-container {
         position: relative;
         width: 35vw;
-        max-width: 500px;
+        max-width: 600px;
       }
 
       .card-bg {
@@ -169,18 +169,22 @@
       /* 오른쪽 섹션 (질문 카드들) */
       .right-section {
         flex: 1;
+      }
+
+      .right-section-inner {
+        margin-right:20%;
         display: grid;
         grid-template-columns: repeat(2, 1fr);
-        gap: 20px 25px;
+        gap: 20px 0px;
         align-content: center;
         justify-items: center;
-        padding: 80px 40px;
+        padding: 50px 100px;
         overflow: hidden; 
       }
 
       .question-card {
-        width: 250px;
-        height: 160px;
+        width: 230px;
+        height: 130px;
         background: rgba(255, 255, 255, 0.59);
         border-radius: 25px;
         font-family: 'Pretendard', sans-serif;
@@ -210,6 +214,8 @@
 
       .question-card:hover {
         transform: translateY(-3px);
+        color: rgba(0, 0, 0, 0.85);
+        font-weight: bold;
         box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
       }
 
@@ -301,18 +307,21 @@
 
       <!-- 오른쪽 섹션 -->
       <section class="right-section">
-        <div class="question-card">간세포 손상 시<br />혈중에서 상승하는 대표 효소는?</div>
-        <div class="question-card">‘재량행위’와<br />‘기속행위'의 차이는?</div>
-        <div class="question-card">행정행위의 하자는<br />몇 가지로 나뉘는가?</div>
-        <div class="question-card">‘although’와<br />‘despite’의 차이는?</div>
-        <div class="question-card">형법상 고의는 결과 발생에 대한<br />‘OO’과 ‘OO’으로 구성된다</div>
-        <div class="question-card">‘재량행위’와<br />‘기속행위'의 차이는?</div>
-        <div class="question-card">인권 침해로 인한<br />제도적 구제 절차에 대해 설명하시오</div>
-        <div class="question-card">행정기관이 국민에게<br />일정 권리나 이익을 부여하는 행위는?</div>
-        <div class="question-card">간접도 손실 시<br />활용에서 상충하는 대표 요소는?</div>
-        <div class="question-card">1920년대 무장 독립운동의<br />대표적 단체는?</div>
-        <div class="question-card">고려의 최고 교육 기관은?</div>
-        <div class="question-card">인슐린 결핍으로 인해<br />케톤체가 과다하게 생성되어<br />발생하는 대사성 질환은?</div>
+        <div class="right-section-inner">
+          <div class="question-card">간세포 손상 시<br />혈중에서 상승하는 대표 효소는?</div>
+          <div class="question-card">‘재량행위’와<br />‘기속행위'의 차이는?</div>
+          <div class="question-card">행정행위의 하자는<br />몇 가지로 나뉘는가?</div>
+          <div class="question-card">‘although’와<br />‘despite’의 차이는?</div>
+          <div class="question-card">형법상 고의는 결과 발생에 대한<br />‘OO’과 ‘OO’으로 구성된다</div>
+          <div class="question-card">‘재량행위’와<br />‘기속행위'의 차이는?</div>
+          <div class="question-card">인권 침해로 인한<br />제도적 구제 절차에 대해 설명하시오</div>
+          <div class="question-card">행정기관이 국민에게<br />일정 권리나 이익을 부여하는 행위는?</div>
+          <div class="question-card">간접도 손실 시<br />활용에서 상충하는 대표 요소는?</div>
+          <div class="question-card">1920년대 무장 독립운동의<br />대표적 단체는?</div>
+          <div class="question-card">고려의 최고 교육 기관은?</div>
+          <div class="question-card">인슐린 결핍으로 인해<br />케톤체가 과다하게 생성되어<br />발생하는 대사성 질환은?</div>
+
+        </div>
       </section>
     </div>
     <script>
